@@ -8,10 +8,12 @@ require 'support/my_spec_helper' # наш собственный класс с �
 # в этом классе содержится ключевая логика игры и значит работы сайта.
 RSpec.describe Game, type: :model do
   # пользователь для создания игр
-  let(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryBot.create(:user) }
 
   # игра с прописанными игровыми вопросами
-  let(:game_w_questions) { FactoryGirl.create(:game_with_questions, user: user) }
+  let(:game_w_questions) do
+    FactoryBot.create(:game_with_questions, user: user)
+  end
 
   # Группа тестов на работу фабрики создания новых игр
   context 'Game Factory' do
@@ -25,9 +27,9 @@ RSpec.describe Game, type: :model do
       expect {
         game = Game.create_game_for_user!(user)
       }.to change(Game, :count).by(1).and(# проверка: Game.count изменился на 1 (создали в базе 1 игру)
-        change(GameQuestion, :count).by(15).and(# GameQuestion.count +15
-          change(Question, :count).by(0) # Game.count не должен измениться
-        )
+          change(GameQuestion, :count).by(15).and(# GameQuestion.count +15
+              change(Question, :count).by(0) # Game.count не должен измениться
+          )
       )
       # проверяем статус и поля
       expect(game.user).to eq(user)
