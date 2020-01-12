@@ -15,12 +15,12 @@ RSpec.describe GameQuestion, type: :model do
   context 'game status' do
     # тест на правильную генерацию хэша с вариантами
     it 'correct .variants' do
-      expect(game_question.variants).to eq(
-                                            {'a' => game_question.question.answer2,
-                                            'b' => game_question.question.answer1,
-                                            'c' => game_question.question.answer4,
-                                            'd' => game_question.question.answer3}
-                                        )
+      expect(game_question.variants).to eq({
+                                               'a' => game_question.question.answer2,
+                                               'b' => game_question.question.answer1,
+                                               'c' => game_question.question.answer4,
+                                               'd' => game_question.question.answer3
+                                           })
     end
 
     it 'correct .answer_correct?' do
@@ -29,17 +29,16 @@ RSpec.describe GameQuestion, type: :model do
     end
 
     # тест на наличие методов делегантов level & text
-    it  'correct .level & .text delegates ' do
+    it 'correct .level & .text delegates ' do
       expect(game_question.text).to eq(game_question.question.text)
       expect(game_question.level).to eq(game_question.question.level)
     end
 
     # 61.5
     it 'correct.correct_answer_key' do
-      expect(game_question.correct_answer_key). to eq('b')
+      expect(game_question.correct_answer_key).to eq('b')
     end
   end
-
 
 
   # help_hash у нас имеет такой формат:
